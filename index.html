@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlantCare - Главная</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__container container">
+        <a href="index.html" class="logo">PlantCare</a>
+        <nav class="nav">
+          <a href="index.html" class="nav__link nav__link--active">Home</a>
+          <a href="stats.html" class="nav__link">Statistics</a>
+          <a href="about.html" class="nav__link">About</a>
+        </nav>
+        <button class="btn btn--add">+ Add Plant</button>
+      </div>
+    </header>
+    <main class="main">
+      <div class="controls">
+        <input type="text" class="search" placeholder="search..." />
+        <div class="controls__actions">
+          <button class="btn btn--secondary">sort</button>
+          <button class="btn btn--secondary">filter</button>
+        </div>
+      </div>
+      <div class="plants-grid"></div>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__text">PlantCare - с заботой о ваших растениях</p>
+        <p class="footer__year">2026</p>
+      </div>
+    </footer>
+    <script src="js/app.js"></script>
+  </body>
+</html>
