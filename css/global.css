@@ -1,0 +1,128 @@
+/* ==================================
+   1. VARIABLES & RESET
+   ================================== */
+:root {
+  /* colors */
+  --bg-primary: #e5f1e5;
+  --bg-secondary: #fdfff5;
+  --btn-green: #0d5e13;
+  --bar-green: #0d5e13;
+  --bar-yellow: #ffde88;
+  --bar-red: #fc8181;
+  --text-black: #000000;
+
+  /* font */
+  --font-main: "Jacques Francois", cursive;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary, #e5f1e5);
+  color: var(--text-black, #000000);
+  line-height: 1.5;
+}
+
+/* ==================================
+   2. HEADER & NAVIGATION
+   ================================== */
+.header {
+  padding: 30px 0 40px 0;
+}
+
+.header__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-main);
+  font-size: 48px;
+  color: var(--text-black, #000000);
+  text-decoration: none;
+  margin-right: 165px;
+}
+
+.nav {
+  display: flex;
+  gap: 95px;
+  position: relative;
+}
+
+.nav__link {
+  font-family: var(--font-main);
+  font-size: 24px;
+  color: var(--text-black, #000000);
+  text-decoration: none;
+}
+
+.nav__link:hover {
+  text-decoration: underline;
+}
+
+.nav__link--active {
+  text-decoration: underline;
+}
+
+.btn {
+  font-family: var(--font-main);
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.btn--add {
+  background-color: var(--btn-green);
+  color: var(--bg-secondary);
+  padding: 16px 48px;
+  border-radius: 21px;
+  font-size: 20px;
+}
+
+/* ==================================
+   6. FOOTER
+   ================================== */
+.footer {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer .container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 34px;
+}
+
+.footer__text {
+  font-family: var(--font-main);
+  font-size: 16px;
+  color: var(--text-black);
+  margin-bottom: 15px;
+}
+
+.footer__year {
+  font-family: var(--font-main);
+  font-size: 14px;
+  color: var(--text-black);
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 34px;
+}
