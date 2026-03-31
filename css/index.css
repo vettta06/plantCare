@@ -110,7 +110,7 @@
 .progress-bar {
   width: 100%;
   height: 11px;
-  background-color: var( --bg-trinity);
+  background-color: var(--bg-trinity);
   overflow: hidden;
   border-radius: 21px;
 }
