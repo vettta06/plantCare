@@ -1,0 +1,150 @@
+/* ==================================
+   1. STATS PAGE TITLE
+   ================================== */
+.stats__title {
+  font-family: var(--font-main);
+  font-size: 20px;
+  color: var(--text-black);
+  text-align: center;
+  margin-bottom: 60px;
+  margin-top: 20px;
+}
+
+/* ==================================
+   2. STATS CARDS (Top 3 cards)
+   ================================== */
+.stats-cards {
+  display: flex;
+  justify-content: center;
+  gap: 45px;
+  margin-bottom: 80px;
+}
+
+.stat-card {
+  background-color: var(--bar);
+  border-radius: 21px;
+  padding: 32px 48px;
+  min-width: 280px;
+  text-align: center;
+}
+
+.stat-card__label {
+  font-family: var(--font-main);
+  font-size: 24px;
+  color: var(--text-black);
+  margin-bottom: 16px;
+  text-transform: lowercase;
+}
+
+.stat-card__value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.stat-card__value span:first-child {
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-black);
+}
+
+.stat-card__icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* ==================================
+   3. STATS CHARTS SECTION
+   ================================== */
+.stats-charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 21px;
+  margin-bottom: 80px;
+}
+
+.stats-chart {
+  border-radius: 21px;
+  padding: 32px;
+}
+
+.stats-chart__title {
+  font-family: var(--font-main);
+  font-size: 20px;
+  color: var(--text-black);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* ==================================
+   4. CHART BARS
+   ================================== */
+.stats-chart__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+}
+
+.chart-bar__label {
+  font-family: var(--font-main);
+  font-size: 20px;
+  color: var(--text-black);
+  min-width: 100px;
+  text-align: left;
+}
+
+.chart-bar__track {
+  flex: 1;
+  height: 12px;
+  background-color: var(--bar);
+  border-radius: 21px;
+  overflow: hidden;
+}
+
+.chart-bar__fill {
+  height: 100%;
+  border-radius: 21px;
+  transition: width 0.3s;
+}
+
+/* Chart bar colors */
+.chart-bar__fill--leafy {
+  background-color: var(--bar-green);
+}
+
+.chart-bar__fill--flowering {
+  background-color: var(--bar-yellow);
+}
+
+.chart-bar__fill--succulent {
+  background-color: var(--bar-red);
+}
+
+.chart-bar__fill--good {
+  background-color: var(--bar-green);
+}
+
+.chart-bar__fill--attention {
+  background-color: var(--bar-yellow);
+}
+
+.chart-bar__fill--critical {
+  background-color: var(--bar-red);
+}
+
+.chart-bar__value {
+  font-family: var(--font-main);
+  font-size: 16px;
+  color: var(--text-black);
+  min-width: 24px;
+  text-align: right;
+}
