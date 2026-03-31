@@ -10,7 +10,9 @@
   --bar-yellow: #ffde88;
   --bar-red: #fc8181;
   --text-black: #000000;
-  --bar: #faf3e0;
+  --bg-trinity: #faf3e0;
+  --light-green: #93dab1;
+  --brown: #b9a585;
 
   /* font */
   --font-main: "Jacques Francois", cursive;

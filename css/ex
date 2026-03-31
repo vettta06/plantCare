@@ -7,31 +7,33 @@
 
 .about-section__title {
   font-family: var(--font-main);
-  font-size: 24px;
+  font-size: 20px;
   color: var(--text-black);
   margin-bottom: 20px;
+  text-transform: lowercase;
 }
 
 .about-card {
-  background-color: var(--bg-trinity);
+  background-color: var(--bg-secondary);
   border-radius: 21px;
-  padding: 24px 32px 24px 10px;
+  padding: 24px 32px;
   display: flex;
   align-items: flex-start;
   gap: 24px;
 }
 
 .about-card__icon {
-  width: 100px;
-  height: 100px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .about-card__text {
   font-family: var(--font-main);
-  font-size: 24px;
+  font-size: 16px;
   color: var(--text-black);
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -43,15 +45,16 @@
 }
 
 .developer-card {
-  background-color: var(--bg-trinity);
+  background-color: var(--bg-secondary);
   border-radius: 21px;
   padding: 24px 32px;
 }
 
 .developer-card__text {
   font-family: var(--font-main);
-  font-size: 24px;
+  font-size: 16px;
   color: var(--text-black);
+  line-height: 1.8;
 }
 
 .developer-card__text strong {
@@ -74,14 +77,14 @@
    ================================== */
 .tech-stack {
   display: flex;
-  gap: 30px;
+  gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 267px;
+  margin-bottom: 60px;
 }
 
 .tech-stack__badge {
   font-family: var(--font-main);
-  font-size: 24px;
+  font-size: 16px;
   padding: 10px 24px;
   border-radius: 21px;
   text-align: center;
@@ -89,21 +92,26 @@
 }
 
 .tech-stack__badge--html {
-  background-color: var(--bar-yellow);
+  background-color: #FFE082;
   color: var(--text-black);
 }
 
 .tech-stack__badge--css {
-  background-color: var(--bar-red);
+  background-color: #EF9A9A;
   color: var(--text-black);
 }
 
 .tech-stack__badge--js {
-  background-color: var(--light-green);
+  background-color: #A5D6A7;
   color: var(--text-black);
 }
 
 .tech-stack__badge--figma {
-  background-color: var(--brown);
-  color: var(--text-black);
+  background-color: #A1887F;
+  color: #FFFFFF;
 }
+
+/* ==================================
+   4. RESPONSIVE (Later)
+   ================================== */
+/* @media queries will be added later */
