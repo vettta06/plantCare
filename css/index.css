@@ -40,6 +40,80 @@
 }
 
 /* ==================================
+   DROPDOWN MENUS
+   ================================== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown__trigger {
+  position: relative;
+  padding-right: 32px;
+}
+
+.dropdown__trigger::after {
+  content: "▼";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.dropdown__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.dropdown__menu--active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown__item {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--font-main);
+  font-size: 16px;
+  color: var(--text-black);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown__item:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.dropdown__item:last-child {
+  border-radius: 0 0 12px 12px;
+}
+
+.dropdown__item:hover {
+  background-color: var(--bg-primary);
+}
+
+.dropdown__item--active {
+  background-color: var(--btn-green);
+  color: #ffffff;
+}
+
+/* ==================================
    4. PLANTS GRID
    ================================== */
 .plants-grid {

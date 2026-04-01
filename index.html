@@ -25,8 +25,36 @@
       <div class="controls">
         <input type="text" class="search" placeholder="Название растения..." />
         <div class="controls__actions">
-          <button class="btn btn--secondary">sort</button>
-          <button class="btn btn--secondary">filter</button>
+          <div class="dropdown">
+            <button class="btn btn--secondary dropdown__trigger" id="sortBtn">
+              sort
+            </button>
+            <div class="dropdown__menu" id="sortMenu">
+              <button class="dropdown__item" data-sort="date">
+                По дате полива
+              </button>
+              <button class="dropdown__item" data-sort="type">По типу</button>
+              <button class="dropdown__item" data-sort="name">
+                По названию
+              </button>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button class="btn btn--secondary dropdown__trigger" id="filterBtn">
+              filter
+            </button>
+            <div class="dropdown__menu" id="filterMenu">
+              <button class="dropdown__item" data-filter="all">
+                Все растения
+              </button>
+              <button class="dropdown__item" data-filter="watering">
+                Требуют полива
+              </button>
+              <button class="dropdown__item" data-filter="healthy">
+                Здоровы
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="plants-grid"></div>
