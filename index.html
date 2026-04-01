@@ -66,5 +66,55 @@
       </div>
     </footer>
     <script src="js/app.js"></script>
+    <div class="modal" id="addPlantModal">
+      <div class="modal__overlay"></div>
+      <div class="modal__content">
+        <button class="modal__close" id="closeModal">&times;</button>
+        <h2 class="modal__title">Форма добавления растения</h2>
+        <form class="plant-form" id="plantForm">
+          <input
+            type="text"
+            class="plant-form__input"
+            placeholder="Название растения..."
+            required
+          />
+          <input
+            type="url"
+            class="plant-form__input"
+            placeholder="Ссылка на изображение..."
+          />
+          <input
+            type="date"
+            class="plant-form__input"
+            placeholder="Дата посадки растения..."
+          />
+          <select class="plant-form__select">
+            <option value="" disabled selected>Тип...</option>
+            <option value="leafy">Leafy</option>
+            <option value="flowering">Flowering</option>
+            <option value="succulent">Succulent</option>
+          </select>
+          <input
+            type="date"
+            class="plant-form__input"
+            placeholder="Дата последнего полива..."
+          />
+          <input
+            type="number"
+            class="plant-form__input"
+            placeholder="Частота полива (дни)..."
+            min="1"
+          />
+          <textarea
+            class="plant-form__textarea"
+            placeholder="Описание..."
+            rows="4"
+          ></textarea>
+          <button type="submit" class="btn btn--add plant-form__submit">
+            Добавить растение
+          </button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
