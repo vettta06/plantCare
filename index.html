@@ -65,7 +65,7 @@
         <p class="footer__year">2026</p>
       </div>
     </footer>
-    <script src="js/app.js"></script>
+    <script type="module" src="js/app.js"></script>
     <div class="modal" id="addPlantModal">
       <div class="modal__overlay"></div>
       <div class="modal__content">
@@ -83,22 +83,16 @@
             class="plant-form__input"
             placeholder="Ссылка на изображение..."
           />
-          <input
-            type="date"
-            class="plant-form__input"
-            placeholder="Дата посадки растения..."
-          />
+          <label class="plant-form__label">Дата посадки</label>
+          <input type="date" class="plant-form__input" />
           <select class="plant-form__select">
             <option value="" disabled selected>Тип...</option>
             <option value="leafy">Leafy</option>
             <option value="flowering">Flowering</option>
             <option value="succulent">Succulent</option>
           </select>
-          <input
-            type="date"
-            class="plant-form__input"
-            placeholder="Дата последнего полива..."
-          />
+          <label class="plant-form__label">Дата последнего полива</label>
+          <input type="date" class="plant-form__input" />
           <input
             type="number"
             class="plant-form__input"

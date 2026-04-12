@@ -144,6 +144,13 @@
   display: block;
 }
 
+.plant-card__img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  position: relative;
+}
+
 .plant-card__content {
   padding: 24px 36px 28px 36px;
 }
@@ -313,6 +320,14 @@
   color: var(--text-black);
   text-align: center;
   margin-bottom: 32px;
+}
+
+.plant-form__label {
+  font-size: 14px;
+  color: var(--text-black);
+  margin-bottom: -8px;
+  margin-top: 8px;
+  padding-left: 4px;
 }
 
 /* ==================================
