@@ -1,9 +1,6 @@
-// создает корректный объект растения из данных формы
-
 import { generateId } from "./utils.js";
 
 // создать новое растение
-
 export function createPlant(data) {
   return {
     id: generateId(),
