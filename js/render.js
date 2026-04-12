@@ -18,6 +18,11 @@ export function renderPlants(plants) {
           <p class="plant-card__desc">${p.description}</p>
           <p class="plant-card__age">Дата посадки: ${p.plantedDate}</p>
           <p class="plant-card__watered">Последний полив: ${p.lastWatered}</p>
+          <div class="plant-card__progress">
+            <div class="progress-bar">
+                <div class="progress-bar__fill progress-bar__fill--green" style="width: 50%"></div>
+            </div>
+          </div>
             <div class="plant-card__actions">
                 <button class="btn btn--watered" data-action="water">
                     <img src="img/watering.svg" alt="water" />

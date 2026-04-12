@@ -75,6 +75,8 @@ export function initControls(getPlants, onChange) {
 // проверка: нужно ли поливать
 
 function isNeedWater(plant) {
+  if (!plant.lastWatered) return true;
+
   const last = new Date(plant.lastWatered);
   const now = new Date();
 
