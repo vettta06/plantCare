@@ -80,7 +80,6 @@ function isNeedWater(plant) {
   const last = new Date(plant.lastWatered);
   const now = new Date();
 
-  const diffDays = (now - last) / (1000 * 60 * 60 * 24);
-
-  return diffDays > plant.wateringFrequency;
+  const diffHours = (now - last) / (1000 * 60 * 60);
+  return diffHours > plant.wateringFrequency;
 }

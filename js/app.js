@@ -55,7 +55,7 @@ document.addEventListener("click", (e) => {
   if (action === "water") {
     plants = plants.map((p) =>
       p.id === id
-        ? { ...p, lastWatered: new Date().toISOString().slice(0, 10) }
+        ? { ...p, lastWatered: new Date().toISOString() }
         : p,
     );
   }

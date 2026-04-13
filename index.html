@@ -80,12 +80,12 @@
             <option value="succulent">Succulent</option>
           </select>
           <label class="plant-form__label"> Дата последнего полива </label>
-          <input type="date" name="lastWatered" class="plant-form__input" />
+          <input type="datetime-local" name="lastWatered" class="plant-form__input" />
           <input
             type="number"
             name="wateringFrequency"
             class="plant-form__input"
-            placeholder="Частота полива (дни)..."
+            placeholder="Частота полива (часы)..."
             min="1"
           />
           <textarea

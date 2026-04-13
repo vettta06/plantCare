@@ -8,8 +8,10 @@ export function createPlant(data) {
     image: data.image,
     type: data.type,
     plantedDate: data.plantedDate,
-    lastWatered: data.lastWatered,
-    wateringFrequency: Number(data.wateringFrequency),
+    lastWatered: data.lastWatered && data.lastWatered.trim()
+      ? new Date(data.lastWatered).toISOString()
+      : new Date().toISOString(),
+    wateringFrequency: Number(data.wateringFrequency) || 1,
     description: data.description,
   };
 }
