@@ -75,11 +75,16 @@ export function initControls(getPlants, onChange) {
 // проверка: нужно ли поливать
 
 function isNeedWater(plant) {
-  if (!plant.lastWatered) return true;
+  const baseDate = plant.lastWatered || plant.plantedDate;
+  if (!baseDate) return true;
 
-  const last = new Date(plant.lastWatered);
+  const last = new Date(baseDate);
   const now = new Date();
 
   const diffHours = (now - last) / (1000 * 60 * 60);
-  return diffHours > plant.wateringFrequency;
+  const freq = Number(plant.wateringFrequency) || 1;
+
+  const percent = 100 - (diffHours / freq) * 100;
+
+  return percent <= 30;
 }

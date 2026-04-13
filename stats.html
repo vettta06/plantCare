@@ -134,6 +134,12 @@
         <p class="footer__year">2026</p>
       </div>
     </footer>
-    <script src="js/app.js"></script>
+    <script type="module">
+      import { getPlants } from "./js/storage.js";
+      import { renderStats } from "./js/stats.js";
+
+      const plants = getPlants();
+      renderStats(plants);
+    </script>
   </body>
 </html>
