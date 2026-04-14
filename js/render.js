@@ -71,8 +71,10 @@ function getWaterProgress(plant) {
   let percent = 100 - (diffHours / freq) * 100;
 
   percent = Math.min(100, Math.max(0, Math.round(percent)));
+  const min = 5;
+  const safePercent = Math.max(percent, min);
 
-  return { percent };
+  return { percent: safePercent };
 }
 
 function formatDate(dateString) {
