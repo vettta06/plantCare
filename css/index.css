@@ -142,6 +142,8 @@
   width: 100%;
   height: auto;
   display: block;
+  height: 220px;  
+  object-fit: cover;
 }
 
 .plant-card__img:hover {
