@@ -5,6 +5,7 @@ import { createPlant } from "./plants.js";
 import { renderPlants } from "./render.js";
 import { initForm } from "./form.js";
 import { initControls } from "./controls.js";
+import { getLocalDateTime } from "./utils.js";
 
 let plants = getPlants();
 
@@ -25,11 +26,19 @@ function updateUI(data = plants) {
 
 function handleAddPlant(data) {
   if (editingId !== null) {
-    plants = plants.map((p) => (p.id === editingId ? { ...p, ...data } : p));
+    plants = plants.map((p) =>
+      p.id === editingId
+        ? {
+            ...p,
+            ...data,
+            lastWatered: data.lastWatered ? data.lastWatered : p.lastWatered,
+          }
+        : p,
+    );
 
     editingId = null;
   } else {
-    // ➕ обычное добавление
+    // обычное добавление
     const plant = createPlant(data);
     plants.push(plant);
   }
@@ -54,9 +63,7 @@ document.addEventListener("click", (e) => {
   // полив
   if (action === "water") {
     plants = plants.map((p) =>
-      p.id === id
-        ? { ...p, lastWatered: new Date().toISOString() }
-        : p,
+      p.id === id ? { ...p, lastWatered: getLocalDateTime() } : p,
     );
   }
 

@@ -57,7 +57,9 @@ export function initForm(onSubmit) {
     form.elements.image.value = plant.image;
     form.elements.plantedDate.value = plant.plantedDate;
     form.elements.type.value = plant.type;
-    form.elements.lastWatered.value = plant.lastWatered;
+    form.elements.lastWatered.value = plant.lastWatered
+      ? plant.lastWatered.slice(0, 16)
+      : "";
     form.elements.wateringFrequency.value = plant.wateringFrequency;
     form.elements.description.value = plant.description;
 
