@@ -1,5 +1,7 @@
 // обрабатывает открытие модального окна и добавление / редактирование растения
 
+import { getLocalDateTime } from "./utils.js";
+
 export function initForm(onSubmit) {
   const modal = document.getElementById("addPlantModal");
   const openBtn = document.querySelector(".btn--add");
@@ -7,28 +9,74 @@ export function initForm(onSubmit) {
   const form = document.getElementById("plantForm");
   const submitBtn = form.querySelector("button[type='submit']");
 
-  // открыть модалку (режим ДОБАВЛЕНИЯ)
+  const plantedInput = form.elements.plantedDate;
+  const wateredInput = form.elements.lastWatered;
+
+  // ===== helpers для ошибок =====
+
+  function showError(input, message) {
+    clearError(input);
+
+    const error = document.createElement("div");
+    error.className = "form-error";
+    error.textContent = message;
+
+    input.classList.add("input-error");
+    input.after(error);
+  }
+
+  function clearError(input) {
+    input.classList.remove("input-error");
+
+    const next = input.nextElementSibling;
+    if (next && next.classList.contains("form-error")) {
+      next.remove();
+    }
+  }
+
+  function clearAllErrors() {
+    form.querySelectorAll(".form-error").forEach((e) => e.remove());
+    form
+      .querySelectorAll(".input-error")
+      .forEach((i) => i.classList.remove("input-error"));
+  }
+
+  // открыть модалку
 
   openBtn.addEventListener("click", () => {
     modal.classList.add("modal--active");
     form.reset();
+    clearAllErrors();
+
+    // ✅ обновляем дату каждый раз
+    const localDateTime = getLocalDateTime();
+    const localDate = localDateTime.split("T")[0];
+
+    if (plantedInput) plantedInput.max = localDate;
+    if (wateredInput) wateredInput.max = localDateTime;
 
     submitBtn.textContent = "Добавить растение";
-
-    // сбрасываем режим редактирования
     window.setEditingId(null);
   });
 
-  // закрыть модалку
+  // ограничение: полив не раньше посадки
+  plantedInput.addEventListener("change", () => {
+    if (wateredInput) {
+      wateredInput.min = plantedInput.value;
+    }
+  });
+
+  // закрыть
 
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("modal--active");
   });
 
-  // отправка формы
+  // submit
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    clearAllErrors();
 
     const formData = new FormData(form);
 
@@ -42,6 +90,33 @@ export function initForm(onSubmit) {
       description: formData.get("description"),
     };
 
+    const localDateTime = getLocalDateTime();
+    const today = localDateTime.split("T")[0];
+
+    let hasError = false;
+
+    // посадка в будущем
+    if (data.plantedDate && data.plantedDate > today) {
+      showError(plantedInput, "Дата не может быть в будущем");
+      hasError = true;
+    }
+
+    // полив в будущем
+    if (data.lastWatered && data.lastWatered > localDateTime) {
+      showError(wateredInput, "Дата не может быть в будущем");
+      hasError = true;
+    }
+
+    // полив раньше посадки
+    if (data.plantedDate && data.lastWatered) {
+      if (data.lastWatered < data.plantedDate) {
+        showError(wateredInput, "Полив раньше посадки невозможен");
+        hasError = true;
+      }
+    }
+
+    if (hasError) return;
+
     onSubmit(data);
 
     form.reset();
@@ -50,8 +125,17 @@ export function initForm(onSubmit) {
     submitBtn.textContent = "Добавить растение";
   });
 
+  // редактирование
+
   window.fillFormForEdit = (plant) => {
     modal.classList.add("modal--active");
+    clearAllErrors();
+
+    const localDateTime = getLocalDateTime();
+    const localDate = localDateTime.split("T")[0];
+
+    if (plantedInput) plantedInput.max = localDate;
+    if (wateredInput) wateredInput.max = localDateTime;
 
     form.elements.name.value = plant.name;
     form.elements.image.value = plant.image;
