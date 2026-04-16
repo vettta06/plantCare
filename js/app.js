@@ -8,6 +8,7 @@ import { initControls } from "./controls.js";
 import { getLocalDateTime } from "./utils.js";
 
 let plants = getPlants();
+const overlay = document.querySelector(".mobile-menu__overlay");
 
 // режим редактирования
 let editingId = null;
@@ -88,6 +89,50 @@ document.addEventListener("click", (e) => {
   savePlants(plants);
   updateUI();
 });
+
+const burger = document.querySelector(".burger");
+const menu = document.getElementById("mobileMenu");
+
+const closeBtn = document.querySelector(".mobile-menu__close");
+
+if (burger && menu && overlay) {
+  burger.addEventListener("click", () => {
+    menu.classList.add("mobile-menu--active");
+    overlay.classList.add("mobile-menu__overlay--active");
+  });
+}
+
+if (closeBtn && menu && overlay) {
+  closeBtn.addEventListener("click", () => {
+    menu.classList.remove("mobile-menu--active");
+    overlay.classList.remove("mobile-menu__overlay--active");
+  });
+}
+
+// кнопка +
+const fab = document.getElementById("fabAdd");
+const modal = document.getElementById("addPlantModal");
+
+if (fab && modal) {
+  fab.addEventListener("click", () => {
+    modal.classList.add("modal--active");
+  });
+}
+
+if (overlay && menu) {
+  overlay.addEventListener("click", () => {
+    menu.classList.remove("mobile-menu--active");
+    overlay.classList.remove("mobile-menu__overlay--active");
+  });
+}
+
+const modalOverlay = document.querySelector(".modal__overlay");
+
+if (modalOverlay && modal) {
+  modalOverlay.addEventListener("click", () => {
+    modal.classList.remove("modal--active");
+  });
+}
 
 // форма
 

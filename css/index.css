@@ -298,6 +298,8 @@
   width: 90%;
   z-index: 1001;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .modal__close {
@@ -492,4 +494,118 @@
   .plant-card__actions .btn--icon + .btn--icon {
     margin-left: 16px; /* было 28px */
   }
+}
+
+/* ==================================
+   MOBILE (< 768px)
+   ================================== */
+@media (max-width: 767px) {
+  /* HEADER */
+  .header__container {
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 28px;
+    margin-right: 0;
+  }
+
+  /* скрываем обычное меню */
+  .nav {
+    display: none;
+  }
+
+  /* делаем бургер */
+  .burger {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  /* кнопка add */
+  .btn--add {
+    display: none; /* убираем в меню */
+  }
+
+  /* CONTROLS */
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 0 16px;
+  }
+
+  .search {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  /* GRID → 1 колонка */
+  .plants-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 16px;
+  }
+
+  /* CARD */
+  .plant-card__img {
+    height: 200px;
+  }
+
+  .plant-card__title {
+    font-size: 20px;
+  }
+
+  /* кнопки */
+  .plant-card__actions {
+    justify-content: space-between;
+  }
+
+  .btn--watered {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .btn--icon {
+    font-size: 18px;
+  }
+
+  /* modal */
+  .modal__content {
+    max-width: 80%;
+    padding: 24px 20px;
+  }
+
+  .modal__title {
+    font-size: 22px;
+    padding-right: 40px;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 20px 0;
+  }
+}
+
+.fab-add {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  background-color: var(--btn-green);
+  color: white;
+
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 3000;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
