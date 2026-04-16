@@ -107,3 +107,25 @@
   background-color: var(--brown);
   color: var(--text-black);
 }
+
+@media (max-width: 1024px) {
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .logo {
+    font-size: 32px;
+    margin-right: 0;
+  }
+
+  .nav {
+    gap: 24px;
+  }
+
+  .nav__link {
+    font-size: 18px;
+  }
+}
