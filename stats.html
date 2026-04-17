@@ -13,13 +13,19 @@
         <a href="index.html" class="logo">PlantCare</a>
         <nav class="nav">
           <a href="index.html" class="nav__link">Home</a>
-          <a href="stats.html" class="nav__link nav__link--active"
-            >Statistics</a
-          >
+          <a href="stats.html" class="nav__link">Statistics</a>
           <a href="about.html" class="nav__link">About</a>
         </nav>
+        <div class="burger">☰</div>
       </div>
     </header>
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-menu__close">✕</button>
+      <a href="index.html" class="nav__link">Home</a>
+      <a href="stats.html" class="nav__link">Statistics</a>
+      <a href="about.html" class="nav__link">About</a>
+    </div>
+    <div class="mobile-menu__overlay"></div>
     <main class="main">
       <div class="container">
         <h1 class="stats__title">Overview of your collection</h1>
@@ -134,12 +140,6 @@
         <p class="footer__year">2026</p>
       </div>
     </footer>
-    <script type="module">
-      import { getPlants } from "./js/storage.js";
-      import { renderStats } from "./js/stats.js";
-
-      const plants = getPlants();
-      renderStats(plants);
-    </script>
+    <script type="module" src="js/app.js"></script>
   </body>
 </html>

@@ -1,30 +1,42 @@
-// управляет состоянием приложения
-
+/* imports */
 import { getPlants, savePlants } from "./storage.js";
 import { createPlant } from "./plants.js";
 import { renderPlants } from "./render.js";
 import { initForm } from "./form.js";
 import { initControls } from "./controls.js";
 import { getLocalDateTime } from "./utils.js";
+import { renderStats } from "./stats.js";
 
+/* state */
 let plants = getPlants();
-const overlay = document.querySelector(".mobile-menu__overlay");
-
-// режим редактирования
 let editingId = null;
 
+/* page detection */
+const isStatsPage = document.querySelector(".stats-charts");
+const isMainPage = document.querySelector(".plants-grid");
+
+/* update ui */
+function updateUI(data = plants) {
+  if (isMainPage) {
+    renderPlants(data);
+  }
+}
+
+/* init */
+if (isStatsPage) {
+  renderStats(plants);
+}
+
+if (isMainPage) {
+  updateUI();
+}
+
+/* edit mode */
 window.setEditingId = function (id) {
   editingId = id;
 };
 
-// обновить UI
-
-function updateUI(data = plants) {
-  renderPlants(data);
-}
-
-// добавление или редактирование растения
-
+/* add / edit plant */
 function handleAddPlant(data) {
   if (editingId !== null) {
     plants = plants.map((p) =>
@@ -39,7 +51,6 @@ function handleAddPlant(data) {
 
     editingId = null;
   } else {
-    // обычное добавление
     const plant = createPlant(data);
     plants.push(plant);
   }
@@ -48,41 +59,32 @@ function handleAddPlant(data) {
   updateUI();
 }
 
-// обработка кликов по карточкам
-
+/* card actions */
 document.addEventListener("click", (e) => {
   const actionEl = e.target.closest("[data-action]");
   if (!actionEl) return;
 
   const action = actionEl.dataset.action;
-
   const card = actionEl.closest(".plant-card");
   if (!card) return;
 
   const id = card.dataset.id;
 
-  // полив
   if (action === "water") {
     plants = plants.map((p) =>
       p.id === id ? { ...p, lastWatered: getLocalDateTime() } : p,
     );
   }
 
-  // удаление
   if (action === "delete") {
-    const confirmDelete = confirm("Удалить растение?");
-    if (!confirmDelete) return;
-
+    if (!confirm("Удалить растение?")) return;
     plants = plants.filter((p) => p.id !== id);
   }
 
-  // редактирование
   if (action === "edit") {
     const plant = plants.find((p) => p.id === id);
-
     window.fillFormForEdit(plant);
     editingId = id;
-
     return;
   }
 
@@ -90,9 +92,10 @@ document.addEventListener("click", (e) => {
   updateUI();
 });
 
+/* burger */
 const burger = document.querySelector(".burger");
 const menu = document.getElementById("mobileMenu");
-
+const overlay = document.querySelector(".mobile-menu__overlay");
 const closeBtn = document.querySelector(".mobile-menu__close");
 
 if (burger && menu && overlay) {
@@ -109,16 +112,6 @@ if (closeBtn && menu && overlay) {
   });
 }
 
-// кнопка +
-const fab = document.getElementById("fabAdd");
-const modal = document.getElementById("addPlantModal");
-
-if (fab && modal) {
-  fab.addEventListener("click", () => {
-    modal.classList.add("modal--active");
-  });
-}
-
 if (overlay && menu) {
   overlay.addEventListener("click", () => {
     menu.classList.remove("mobile-menu--active");
@@ -126,7 +119,16 @@ if (overlay && menu) {
   });
 }
 
+/* modal */
+const fab = document.getElementById("fabAdd");
+const modal = document.getElementById("addPlantModal");
 const modalOverlay = document.querySelector(".modal__overlay");
+
+if (fab && modal) {
+  fab.addEventListener("click", () => {
+    modal.classList.add("modal--active");
+  });
+}
 
 if (modalOverlay && modal) {
   modalOverlay.addEventListener("click", () => {
@@ -134,14 +136,10 @@ if (modalOverlay && modal) {
   });
 }
 
-// форма
+/* init form */
+const formExists = document.querySelector("form");
 
-initForm(handleAddPlant);
-
-// контролы
-
-initControls(() => plants, updateUI);
-
-// старт
-
-updateUI();
+if (formExists) {
+  initForm(handleAddPlant);
+  initControls(() => plants, updateUI);
+}
