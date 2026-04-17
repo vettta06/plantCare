@@ -129,3 +129,81 @@
     font-size: 18px;
   }
 }
+
+@media (max-width: 767px) {
+  /* Навигация */
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    margin-right: 0;
+  }
+
+  /* Заголовок */
+  .about-section__title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  /* Основная карточка */
+  .about-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 32px;
+    gap: 5px;
+  }
+
+  .about-card__icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .about-card__text {
+    font-size: 16px;
+  }
+
+  .about-section {
+    margin-bottom: 20px;
+  }
+
+  .developer-section {
+    margin-bottom: 20px;
+  }
+
+  .tech-stack {
+    margin-bottom: 80px;
+  }
+
+  /* Developer */
+  .developer-card {
+    padding: 16px;
+  }
+
+  .developer-card__text {
+    font-size: 16px;
+  }
+
+  /* Tech stack */
+  .tech-stack {
+    gap: 12px;
+    margin-bottom: 120px;
+  }
+
+  .tech-stack__badge {
+    font-size: 14px;
+    padding: 6px 14px;
+  }
+}

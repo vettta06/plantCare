@@ -616,26 +616,3 @@
     padding: 20px 0;
   }
 }
-
-.fab-add {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-
-  width: 60px;
-  height: 60px;
-
-  border-radius: 50%;
-  background-color: var(--btn-green);
-  color: white;
-
-  font-size: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  z-index: 3000;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
