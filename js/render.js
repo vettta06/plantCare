@@ -4,6 +4,31 @@
 
 export function renderPlants(plants) {
   const grid = document.querySelector(".plants-grid");
+  const emptyState = document.getElementById("emptyState");
+
+  if (!plants.length) {
+    const activeFilter = document.querySelector(".dropdown__item--active")
+      ?.dataset.filter;
+
+    let message = "Add your first plant";
+
+    if (activeFilter === "healthy") {
+      message = "No healthy plants. Please water your plants!";
+    }
+
+    if (activeFilter === "watering") {
+      message = "Everything is watered";
+    }
+
+    emptyState.querySelector(".empty-state__text").textContent = message;
+
+    emptyState.style.display = "block";
+    grid.innerHTML = "";
+
+    return;
+  }
+
+  emptyState.style.display = "none";
 
   grid.innerHTML = plants
     .map((p) => {

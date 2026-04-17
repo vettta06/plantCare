@@ -26,10 +26,6 @@
 }
 
 body {
-  min-height: 100vh;
-}
-
-body {
   font-family: var(--font-main);
   background-color: var(--bg-primary, #e5f1e5);
   color: var(--text-black, #000000);
@@ -37,6 +33,12 @@ body {
   overflow-y: auto;
   min-height: 100vh;
   height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
 }
 
 /* ==================================

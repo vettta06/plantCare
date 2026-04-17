@@ -242,6 +242,30 @@
 }
 
 /* ==================================
+   EMPTY STATE (когда нет растений)
+   ================================== */
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state__img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.empty-state__text {
+  font-family: var(--font-main);
+  font-size: 20px;
+  color: var(--text-black);
+}
+
+/* ==================================
    FILTER ICON BASE
    ================================== */
 
@@ -584,11 +608,14 @@
   }
 
   /* filter */
+  .filter-text {
+    display: none;
+  }
+
   #filterBtn {
     padding: 8px;
     width: 40px;
     height: 40px;
-
     display: flex;
     align-items: center;
     justify-content: center;

@@ -38,7 +38,7 @@ export function initControls(getPlants, onChange) {
     e.target.classList.add("dropdown__item--active");
 
     // меняем текст кнопки
-    filterBtn.textContent = e.target.textContent;
+    filterBtn.querySelector(".filter-text").textContent = e.target.textContent;
 
     filterMenu.classList.remove("dropdown__menu--active");
 
