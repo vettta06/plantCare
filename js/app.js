@@ -6,6 +6,87 @@ import { initForm } from "./form.js";
 import { initControls } from "./controls.js";
 import { getLocalDateTime } from "./utils.js";
 import { renderStats } from "./stats.js";
+import { t, tr, lang } from "./translate.js";
+
+const staticText = {
+  home: { ru: "Главная", en: "Home" },
+  stats: { ru: "Статистика", en: "Statistics" },
+  about: { ru: "О проекте", en: "About" },
+
+  plantName: { ru: "Название растения...", en: "Plant name..." },
+  imageUrl: { ru: "Ссылка на изображение...", en: "Image URL..." },
+  frequency: { ru: "Частота полива (часы)...", en: "Watering frequency..." },
+  description: { ru: "Описание...", en: "Description..." },
+
+  all: { ru: "Все растения", en: "All plants" },
+  watering: { ru: "Требуют полива", en: "Need watering" },
+  healthy: { ru: "Здоровы", en: "Healthy" },
+
+  footer: {
+    ru: "PlantCare - с заботой о ваших растениях",
+    en: "PlantCare - with care for your plants",
+  },
+
+  formTitle: {
+    ru: "Форма добавления растения",
+    en: "Add plant form",
+  },
+
+  planted: { ru: "Дата посадки", en: "Planting date" },
+  watered: { ru: "Дата последнего полива", en: "Last watered" },
+  type: { ru: "Тип...", en: "Type..." },
+
+  statsTitle: {
+    ru: "Обзор вашей коллекции",
+    en: "Overview of your collection",
+  },
+
+  total: { ru: "всего", en: "total" },
+  needWater: { ru: "нужно полить", en: "need watering" },
+
+  plantTypes: { ru: "Типы растений", en: "Plant types" },
+  waterNeeds: { ru: "Потребность в воде", en: "Water needs" },
+
+  leafy: { ru: "Лиственные", en: "Leafy" },
+  flowering: { ru: "Цветущие", en: "Flowering" },
+  succulents: { ru: "Суккуленты", en: "Succulents" },
+
+  allGood: { ru: "Все хорошо", en: "All good" },
+  attention: { ru: "Внимание", en: "Attention" },
+  critical: { ru: "Критично", en: "Critical" },
+
+  aboutTitle: {
+    ru: "О приложении PlantCare",
+    en: "About PlantCare",
+  },
+
+  aboutText: {
+    ru: "Веб-приложение для отслеживания расписания ухода за комнатными растениями. Разработано в рамках курсового проекта для автоматизации напоминаний о поливе растений и визуализации статистики.",
+    en: "Web application for tracking indoor plant care schedules. Developed as a course project to automate watering reminders and visualize statistics.",
+  },
+
+  developer: {
+    ru: "Разработчик:",
+    en: "Developer:",
+  },
+};
+
+/* применяем переводы */
+document.querySelectorAll("[data-i18n]").forEach((el) => {
+  const key = el.dataset.i18n;
+  if (staticText[key]) {
+    el.textContent = staticText[key][lang];
+  }
+});
+
+document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+  const key = el.dataset.i18nPlaceholder;
+  if (staticText[key]) {
+    el.placeholder = staticText[key][lang];
+  }
+});
+
+/* ================== app ================== */
 
 /* state */
 let plants = getPlants();
@@ -77,7 +158,7 @@ document.addEventListener("click", (e) => {
   }
 
   if (action === "delete") {
-    if (!confirm("Удалить растение?")) return;
+    if (!confirm(tr(t.buttons.delete))) return;
     plants = plants.filter((p) => p.id !== id);
   }
 
@@ -126,6 +207,14 @@ const modalOverlay = document.querySelector(".modal__overlay");
 
 if (fab && modal) {
   fab.addEventListener("click", () => {
+    modal.classList.add("modal--active");
+  });
+}
+
+const openBtn = document.getElementById("openModalBtn");
+
+if (openBtn && modal) {
+  openBtn.addEventListener("click", () => {
     modal.classList.add("modal--active");
   });
 }

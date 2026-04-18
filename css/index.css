@@ -441,17 +441,21 @@
     margin-right: 60px;
   }
 
+  .header__container {
+    gap: 10px;
+  }
+
   .nav {
-    gap: 40px;
+    gap: 30px;
   }
 
   .nav__link {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .btn--add {
-    padding: 12px 28px;
-    font-size: 16px;
+    padding: 10px 18px;
+    font-size: 14px;
   }
 
   /* CONTROLS */

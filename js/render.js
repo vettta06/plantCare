@@ -1,7 +1,8 @@
 // отвечает за отображение карточек растений
 
-// отрисовать список растений
+import { t, tr } from "./translate.js";
 
+// отрисовать список растений
 export function renderPlants(plants) {
   const grid = document.querySelector(".plants-grid");
   const emptyState = document.getElementById("emptyState");
@@ -10,14 +11,14 @@ export function renderPlants(plants) {
     const activeFilter = document.querySelector(".dropdown__item--active")
       ?.dataset.filter;
 
-    let message = "Add your first plant";
+    let message = tr(t.empty.first);
 
     if (activeFilter === "healthy") {
-      message = "No healthy plants. Please water your plants!";
+      message = tr(t.empty.healthy);
     }
 
     if (activeFilter === "watering") {
-      message = "Everything is watered";
+      message = tr(t.empty.watering);
     }
 
     emptyState.querySelector(".empty-state__text").textContent = message;
@@ -44,9 +45,9 @@ export function renderPlants(plants) {
         <div class="plant-card__content">
           <h3 class="plant-card__title">${p.name}</h3>
           <p class="plant-card__desc">${p.description}</p>
-          <p class="plant-card__age">Дата посадки: ${p.plantedDate}</p>
+          <p class="plant-card__age">${tr(t.form.planted)}: ${p.plantedDate}</p>
           <p class="plant-card__watered">
-            Последний полив: ${formatDate(p.lastWatered)}
+            ${tr(t.form.watered)}: ${formatDate(p.lastWatered)}
           </p>
 
           <div class="plant-card__progress">
@@ -60,7 +61,7 @@ export function renderPlants(plants) {
           <div class="plant-card__actions">
             <button class="btn btn--watered" data-action="water">
               <img src="img/watering.svg" alt="water" />
-              Watered
+              ${tr(t.buttons.watered)}
             </button>
 
             <button class="btn--icon" data-action="edit">
@@ -79,7 +80,6 @@ export function renderPlants(plants) {
 }
 
 // рассчитывает процент "сухости" растения
-
 function getWaterProgress(plant) {
   const baseDate = plant.lastWatered || plant.plantedDate;
 

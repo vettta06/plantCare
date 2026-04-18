@@ -1,6 +1,7 @@
 // обрабатывает открытие модального окна и добавление / редактирование растения
 
 import { getLocalDateTime } from "./utils.js";
+import { t, tr } from "./translate.js";
 
 export function initForm(onSubmit) {
   const modal = document.getElementById("addPlantModal");
@@ -11,8 +12,6 @@ export function initForm(onSubmit) {
 
   const plantedInput = form.elements.plantedDate;
   const wateredInput = form.elements.lastWatered;
-
-  // ===== helpers для ошибок =====
 
   function showError(input, message) {
     clearError(input);
@@ -42,20 +41,18 @@ export function initForm(onSubmit) {
   }
 
   // открыть модалку
-
   openBtn.addEventListener("click", () => {
     modal.classList.add("modal--active");
     form.reset();
     clearAllErrors();
 
-    // ✅ обновляем дату каждый раз
     const localDateTime = getLocalDateTime();
     const localDate = localDateTime.split("T")[0];
 
     if (plantedInput) plantedInput.max = localDate;
     if (wateredInput) wateredInput.max = localDateTime;
 
-    submitBtn.textContent = "Добавить растение";
+    submitBtn.textContent = tr(t.buttons.add);
     window.setEditingId(null);
   });
 
@@ -67,13 +64,11 @@ export function initForm(onSubmit) {
   });
 
   // закрыть
-
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("modal--active");
   });
 
   // submit
-
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     clearAllErrors();
@@ -95,19 +90,16 @@ export function initForm(onSubmit) {
 
     let hasError = false;
 
-    // посадка в будущем
     if (data.plantedDate && data.plantedDate > today) {
       showError(plantedInput, "Дата не может быть в будущем");
       hasError = true;
     }
 
-    // полив в будущем
     if (data.lastWatered && data.lastWatered > localDateTime) {
       showError(wateredInput, "Дата не может быть в будущем");
       hasError = true;
     }
 
-    // полив раньше посадки
     if (data.plantedDate && data.lastWatered) {
       if (data.lastWatered < data.plantedDate) {
         showError(wateredInput, "Полив раньше посадки невозможен");
@@ -122,11 +114,10 @@ export function initForm(onSubmit) {
     form.reset();
     modal.classList.remove("modal--active");
 
-    submitBtn.textContent = "Добавить растение";
+    submitBtn.textContent = tr(t.buttons.add);
   });
 
   // редактирование
-
   window.fillFormForEdit = (plant) => {
     modal.classList.add("modal--active");
     clearAllErrors();
@@ -147,6 +138,6 @@ export function initForm(onSubmit) {
     form.elements.wateringFrequency.value = plant.wateringFrequency;
     form.elements.description.value = plant.description;
 
-    submitBtn.textContent = "Сохранить изменения";
+    submitBtn.textContent = tr(t.buttons.save);
   };
 }
