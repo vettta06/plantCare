@@ -42,6 +42,8 @@ export function initForm(onSubmit) {
 
   // открыть модалку
   openBtn.addEventListener("click", () => {
+    document.getElementById("formTitle").textContent =
+      "Форма добавления растения";
     modal.classList.add("modal--active");
     form.reset();
     clearAllErrors();
@@ -119,6 +121,8 @@ export function initForm(onSubmit) {
 
   // редактирование
   window.fillFormForEdit = (plant) => {
+    document.getElementById("formTitle").textContent =
+      "Редактирование растения";
     modal.classList.add("modal--active");
     clearAllErrors();
 

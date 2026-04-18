@@ -135,7 +135,6 @@ function handleAddPlant(data) {
     const plant = createPlant(data);
     plants.push(plant);
   }
-
   savePlants(plants);
   updateUI();
 }
