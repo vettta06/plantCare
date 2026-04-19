@@ -8,6 +8,9 @@ export function initForm(onSubmit) {
   const openBtn = document.querySelector(".btn--add");
   const closeBtn = document.getElementById("closeModal");
   const form = document.getElementById("plantForm");
+  const imageInput = form.elements.image;
+  const imagePreview = document.getElementById("imagePreview");
+  let currentImage = null;
   const submitBtn = form.querySelector("button[type='submit']");
 
   const plantedInput = form.elements.plantedDate;
@@ -65,6 +68,19 @@ export function initForm(onSubmit) {
     }
   });
 
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      currentImage = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+  });
+
   // закрыть
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("modal--active");
@@ -79,7 +95,7 @@ export function initForm(onSubmit) {
 
     const data = {
       name: formData.get("name"),
-      image: formData.get("image"),
+      image: currentImage,
       plantedDate: formData.get("plantedDate"),
       type: formData.get("type"),
       lastWatered: formData.get("lastWatered"),
@@ -114,6 +130,7 @@ export function initForm(onSubmit) {
     onSubmit(data);
 
     form.reset();
+    currentImage = null;
     modal.classList.remove("modal--active");
 
     submitBtn.textContent = tr(t.buttons.add);
@@ -133,7 +150,6 @@ export function initForm(onSubmit) {
     if (wateredInput) wateredInput.max = localDateTime;
 
     form.elements.name.value = plant.name;
-    form.elements.image.value = plant.image;
     form.elements.plantedDate.value = plant.plantedDate;
     form.elements.type.value = plant.type;
     form.elements.lastWatered.value = plant.lastWatered
@@ -141,7 +157,7 @@ export function initForm(onSubmit) {
       : "";
     form.elements.wateringFrequency.value = plant.wateringFrequency;
     form.elements.description.value = plant.description;
-
+    currentImage = plant.image;
     submitBtn.textContent = tr(t.buttons.save);
   };
 }
