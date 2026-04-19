@@ -231,3 +231,36 @@ if (formExists) {
   initForm(handleAddPlant);
   initControls(() => plants, updateUI);
 }
+
+const themeBtn = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    const isDark =
+      document.documentElement.getAttribute("data-theme") === "dark";
+
+    if (isDark) {
+      // светлая тема
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+      if (themeIcon) themeIcon.src = "img/moon.svg";
+    } else {
+      // тёмная тема
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+      if (themeIcon) themeIcon.src = "img/sun.svg";
+    }
+  });
+}
+
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
+  document.documentElement.setAttribute("data-theme", "dark");
+  const icon = document.getElementById("themeIcon");
+  if (icon) icon.src = "img/sun.svg";
+} else {
+  const icon = document.getElementById("themeIcon");
+  if (icon) icon.src = "img/moon.svg";
+}

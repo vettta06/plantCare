@@ -18,6 +18,17 @@
   --font-main: "Jacques Francois", cursive;
 }
 
+[data-theme="dark"] {
+  --bg-primary: #181a1b;
+  --bg-secondary: #242526;
+  --text-black: #e4e6eb;
+  --bg-trinity: #2f3133;
+  --btn-green: #4caf6a;
+  --bar-green: #4caf6a;
+  --bar-yellow: #e6c15a;
+  --bar-red: #e57373;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -62,7 +73,39 @@ body {
   font-size: 48px;
   color: var(--text-black, #000000);
   text-decoration: none;
-  margin-right: 165px;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 12px;
+  padding: 6px;
+
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.theme-toggle:hover {
+  background-color: var(--bg-secondary);
+  transform: scale(1.1);
+}
+
+.theme-toggle img {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .nav {

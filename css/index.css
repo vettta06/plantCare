@@ -438,7 +438,7 @@
   /* HEADER */
   .logo {
     font-size: 36px;
-    margin-right: 60px;
+    /* margin-right: 60px; */
   }
 
   .header__container {
