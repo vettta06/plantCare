@@ -107,20 +107,26 @@
         </h2>
 
         <form class="plant-form" id="plantForm">
-          <input
-            type="text"
-            name="name"
-            class="plant-form__input"
-            data-i18n-placeholder="plantName"
-            placeholder="Название растения..."
-            required
-            maxlength="30"
-          />
+          <div class="input-with-btn">
+            <input
+              type="text"
+              name="name"
+              class="plant-form__input"
+              data-i18n-placeholder="plantName"
+              placeholder="Название растения..."
+              required
+              maxlength="30"
+            />
 
-          <button type="button" id="fetchPlantBtn">
-            Заполнить автоматически
-          </button>
-
+            <button
+              type="button"
+              id="fetchPlantBtn"
+              class="fetch-btn"
+              title="Заполнить автоматически"
+            >
+              auto
+            </button>
+          </div>
           <input
             type="file"
             name="image"

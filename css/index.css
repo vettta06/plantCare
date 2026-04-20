@@ -411,6 +411,37 @@
   font-size: 18px;
 }
 
+.input-with-btn {
+  position: relative;
+}
+
+.input-with-btn .plant-form__input {
+  width: 100%;
+  padding-right: 44px;
+}
+
+.fetch-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border: none;
+  background: #4caf50;
+  color: #fff;
+
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.fetch-btn:hover {
+  background: #43a047;
+}
+
 /* ==================================
    DATE INPUT STYLING
    ================================== */
