@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlantCare - Главная</title>
+    <link rel="icon" href="/plantCare/assets/favicon-DUXHkwlr.ico" sizes="any" />
+    <link rel="icon" href="/plantCare/assets/favicon-Gq8zsUds.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/plantCare/assets/apple-touch-icon-RxzZ7jH7.png" />
+    <script type="module" crossorigin src="/plantCare/assets/index-CEBMdTB0.js"></script>
+    <link rel="stylesheet" crossorigin href="/plantCare/assets/index-DxmgxYkt.css">
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header__container container">
+        <div class="logo-group">
+          <a href="index.html" class="logo">PlantCare</a>
+          <button id="themeToggle" class="theme-toggle">
+            <img src="data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M21%2014.2894C17.8146%2015.1746%2014.3993%2014.2763%2012.0615%2011.9385C9.72366%209.60074%208.82541%206.18545%209.71056%203L9.71082%203.00008C5.44583%204.18655%202.63796%208.25133%203.03782%2012.6602C3.43767%2017.069%206.93101%2020.5623%2011.3399%2020.9622C15.7487%2021.362%2019.8135%2018.5541%2020.9999%2014.2891L21%2014.2894Z'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" id="themeIcon" />
+          </button>
+        </div>
+        <nav class="nav">
+          <a href="index.html" class="nav__link" data-i18n="home">Home</a>
+          <a href="stats.html" class="nav__link" data-i18n="stats"
+            >Statistics</a
+          >
+          <a href="about.html" class="nav__link" data-i18n="about">About</a>
+        </nav>
+        <button class="btn btn--add" id="openModalBtn">+ Add Plant</button>
+        <div class="burger">☰</div>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu__close">✕</button>
+        <a href="index.html" class="nav__link" data-i18n="home">Home</a>
+        <a href="stats.html" class="nav__link" data-i18n="stats">Statistics</a>
+        <a href="about.html" class="nav__link" data-i18n="about">About</a>
+      </div>
+    </header>
+
+    <div class="mobile-menu__overlay"></div>
+
+    <main class="main">
+      <div class="controls">
+        <input
+          type="text"
+          class="search"
+          data-i18n-placeholder="plantName"
+          placeholder="Название растения..."
+        />
+
+        <div class="controls__actions">
+          <div class="dropdown">
+            <button class="btn btn--secondary dropdown__trigger" id="filterBtn">
+              <img src="/plantCare/assets/filter-BTfNghIU.svg" alt="filter" class="filter-icon" />
+              <span class="filter-text"></span>
+            </button>
+
+            <div class="dropdown__menu" id="filterMenu">
+              <button class="dropdown__item" data-filter="all" data-i18n="all">
+                Все растения
+              </button>
+              <button
+                class="dropdown__item"
+                data-filter="watering"
+                data-i18n="watering"
+              >
+                Требуют полива
+              </button>
+              <button
+                class="dropdown__item"
+                data-filter="healthy"
+                data-i18n="healthy"
+              >
+                Здоровы
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="plants-grid" id="plantsGrid"></div>
+
+      <div class="empty-state" id="emptyState">
+        <p class="empty-state__text">Add your first plant</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__text" data-i18n="footer">
+          PlantCare - с заботой о ваших растениях
+        </p>
+        <p class="footer__year">2026</p>
+      </div>
+    </footer>
+
+    <button id="fabAdd" class="fab-add">+</button>
+
+    <div class="modal" id="addPlantModal">
+      <div class="modal__overlay"></div>
+      <div class="modal__content">
+        <button class="modal__close" id="closeModal">&times;</button>
+
+        <h2 id="formTitle" class="modal__title" data-i18n="formTitle">
+          Форма добавления растения
+        </h2>
+
+        <form class="plant-form" id="plantForm">
+          <input
+            type="text"
+            name="name"
+            class="plant-form__input"
+            data-i18n-placeholder="plantName"
+            placeholder="Название растения..."
+            required
+            maxlength="30"
+          />
+
+          <input
+            type="file"
+            name="image"
+            class="plant-form__input"
+            accept="image/*"
+          />
+
+          <label class="plant-form__label" data-i18n="planted">
+            Дата посадки
+          </label>
+
+          <input
+            type="date"
+            name="plantedDate"
+            class="plant-form__input"
+            max=""
+          />
+
+          <select name="type" class="plant-form__select" required>
+            <option value="" disabled selected data-i18n="type">Тип...</option>
+            <option value="leafy">Leafy</option>
+            <option value="flowering">Flowering</option>
+            <option value="succulent">Succulent</option>
+          </select>
+
+          <label class="plant-form__label" data-i18n="watered">
+            Дата последнего полива
+          </label>
+
+          <input
+            type="datetime-local"
+            name="lastWatered"
+            class="plant-form__input"
+          />
+
+          <input
+            type="number"
+            name="wateringFrequency"
+            class="plant-form__input"
+            data-i18n-placeholder="frequency"
+            placeholder="Частота полива (часы)..."
+            min="1"
+            max="1000"
+          />
+
+          <textarea
+            name="description"
+            class="plant-form__textarea"
+            data-i18n-placeholder="description"
+            placeholder="Описание..."
+            rows="4"
+            maxlength="200"
+          ></textarea>
+
+          <button type="submit" class="btn btn--add plant-form__submit">
+            Добавить растение
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>
