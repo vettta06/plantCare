@@ -1,14 +1,72 @@
-// обрабатывает открытие модального окна и добавление / редактирование растения
+// обрабатывает открытие модального окна и добавление
 
 import { getLocalDateTime } from "./utils.js";
 import { t, tr } from "./translate.js";
 
 export function initForm(onSubmit) {
   const modal = document.getElementById("addPlantModal");
-  const openBtn = document.querySelector(".btn--add");
+  const overlay = modal.querySelector(".modal__overlay");
   const closeBtn = document.getElementById("closeModal");
   const form = document.getElementById("plantForm");
+  const nameInput = form.elements.name;
   const imageInput = form.elements.image;
+  const fetchBtn = document.getElementById("fetchPlantBtn");
+
+  fetchBtn.addEventListener("click", async () => {
+    const name = nameInput.value.trim().toLowerCase();
+    if (!name) return;
+
+    const plant = await fetchPlantData(name);
+
+    if (!plant) {
+      alert("Растение не найдено (пиши на английском)");
+      return;
+    }
+
+    // описание
+    form.elements.description.value = plant.description || "Нет описания";
+
+    // частота полива
+    const wf = plant.wateringBenchmark;
+    const wfInput = form.querySelector('[name="wateringFrequency"]');
+
+    if (wf?.value) {
+      const match = wf.value.match(/\d+/);
+      if (match) {
+        const days = Number(match[0]);
+        const hours = days * 24;
+        wfInput.value = hours;
+      } else {
+        wfInput.value = "";
+      }
+    } else if (plant.watering) {
+      const map = {
+        frequent: 48,
+        average: 120,
+        minimum: 240,
+      };
+      const key = plant.watering.toLowerCase();
+      wfInput.value = map[key] || "";
+    } else {
+      wfInput.value = "";
+    }
+  });
+
+  function closeModal() {
+    modal.classList.remove("modal--active");
+    form.reset();
+    clearAllErrors();
+    currentImage = null;
+  }
+
+  closeBtn.addEventListener("click", closeModal);
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      closeModal();
+    }
+  });
+
   let currentImage = null;
   const submitBtn = form.querySelector("button[type='submit']");
 
@@ -17,18 +75,15 @@ export function initForm(onSubmit) {
 
   function showError(input, message) {
     clearError(input);
-
     const error = document.createElement("div");
     error.className = "form-error";
     error.textContent = message;
-
     input.classList.add("input-error");
     input.after(error);
   }
 
   function clearError(input) {
     input.classList.remove("input-error");
-
     const next = input.nextElementSibling;
     if (next && next.classList.contains("form-error")) {
       next.remove();
@@ -41,24 +96,6 @@ export function initForm(onSubmit) {
       .querySelectorAll(".input-error")
       .forEach((i) => i.classList.remove("input-error"));
   }
-
-  // открыть модалку
-  openBtn.addEventListener("click", () => {
-    document.getElementById("formTitle").textContent =
-      "Форма добавления растения";
-    modal.classList.add("modal--active");
-    form.reset();
-    clearAllErrors();
-
-    const localDateTime = getLocalDateTime();
-    const localDate = localDateTime.split("T")[0];
-
-    if (plantedInput) plantedInput.max = localDate;
-    if (wateredInput) wateredInput.max = localDateTime;
-
-    submitBtn.textContent = tr(t.buttons.add);
-    window.setEditingId(null);
-  });
 
   // ограничение: полив не раньше посадки
   plantedInput.addEventListener("change", () => {
@@ -80,6 +117,8 @@ export function initForm(onSubmit) {
   // закрыть
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("modal--active");
+    form.reset();
+    clearAllErrors();
   });
 
   // submit
@@ -148,4 +187,29 @@ export function initForm(onSubmit) {
     currentImage = plant.image;
     submitBtn.textContent = tr(t.buttons.save);
   };
+}
+
+async function fetchPlantData(name) {
+  try {
+    const API_KEY = import.meta.env.VITE_API_KEY;
+    const res = await fetch(
+      `https://perenual.com/api/v2/species-list?key=${API_KEY}&q=${name}`,
+    );
+    const data = await res.json();
+    const plant = data.data?.[0];
+    if (!plant) return null;
+    const detailsRes = await fetch(
+      `https://perenual.com/api/v2/species/details/${plant.id}?key=${API_KEY}`,
+    );
+    const details = await detailsRes.json();
+    return {
+      name: plant.common_name,
+      description: details.description,
+      watering: details.watering,
+      wateringBenchmark: details.watering_general_benchmark,
+    };
+  } catch (e) {
+    console.error("Ошибка API", e);
+    return null;
+  }
 }
