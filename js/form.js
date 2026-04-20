@@ -9,7 +9,6 @@ export function initForm(onSubmit) {
   const closeBtn = document.getElementById("closeModal");
   const form = document.getElementById("plantForm");
   const imageInput = form.elements.image;
-  const imagePreview = document.getElementById("imagePreview");
   let currentImage = null;
   const submitBtn = form.querySelector("button[type='submit']");
 
@@ -71,13 +70,10 @@ export function initForm(onSubmit) {
   imageInput.addEventListener("change", () => {
     const file = imageInput.files[0];
     if (!file) return;
-
     const reader = new FileReader();
-
     reader.onload = () => {
       currentImage = reader.result;
     };
-
     reader.readAsDataURL(file);
   });
 
@@ -105,7 +101,6 @@ export function initForm(onSubmit) {
 
     const localDateTime = getLocalDateTime();
     const today = localDateTime.split("T")[0];
-
     let hasError = false;
 
     if (data.plantedDate && data.plantedDate > today) {
@@ -126,13 +121,9 @@ export function initForm(onSubmit) {
     }
 
     if (hasError) return;
-
     onSubmit(data);
-
     form.reset();
-    currentImage = null;
     modal.classList.remove("modal--active");
-
     submitBtn.textContent = tr(t.buttons.add);
   });
 
@@ -142,13 +133,10 @@ export function initForm(onSubmit) {
       "Редактирование растения";
     modal.classList.add("modal--active");
     clearAllErrors();
-
     const localDateTime = getLocalDateTime();
     const localDate = localDateTime.split("T")[0];
-
     if (plantedInput) plantedInput.max = localDate;
     if (wateredInput) wateredInput.max = localDateTime;
-
     form.elements.name.value = plant.name;
     form.elements.plantedDate.value = plant.plantedDate;
     form.elements.type.value = plant.type;
