@@ -43,7 +43,11 @@ export function renderPlants(plants) {
       return `
       <div class="plant-card" data-id="${p.id}">
         <div class="plant-card__image">
-          <img src="${p.image}" class="plant-card__img" />
+          <img 
+            src="${p.image || "img/default-plant.png"}" 
+            class="plant-card__img"
+            onerror="this.onerror=null; this.src='img/default-plant.png';"
+          />
         </div>
 
         <div class="plant-card__content">
@@ -122,3 +126,9 @@ function getProgressColor(percent) {
   if (percent > 30) return "#FFDE88";
   return "#FC8181";
 }
+
+document.querySelectorAll('.plant-card__img').forEach(img => {
+  img.onerror = () => {
+    img.src = 'img/default-plant.png';
+  };
+});

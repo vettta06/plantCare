@@ -172,6 +172,7 @@
   overflow: hidden;
 
   min-height: calc(1.4em * 2);
+}
 
 .plant-card__age {
   font-family: var(--font-main);
