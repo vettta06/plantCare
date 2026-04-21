@@ -168,6 +168,12 @@ document.addEventListener("click", (e) => {
     return;
   }
 
+  if (action === "more") {
+    const plant = plants.find((p) => p.id === id);
+    window.openDescModal(plant.name, plant.description);
+    return;
+  }
+
   savePlants(plants);
   updateUI();
 });
@@ -264,3 +270,29 @@ if (savedTheme === "dark") {
   const icon = document.getElementById("themeIcon");
   if (icon) icon.src = "img/moon.svg";
 }
+
+// модалка для описания карточки
+const descModal = document.getElementById("descModal");
+const descText = document.getElementById("descText");
+const descTitle = document.getElementById("descTitle");
+const closeDescBtn = document.getElementById("closeDescModal");
+
+function openDescModal(title, text) {
+  descTitle.textContent = title;
+  descText.textContent = text;
+  descModal.classList.add("modal--active");
+}
+window.openDescModal = openDescModal;
+
+function closeDescModal() {
+  descModal.classList.remove("modal--active");
+}
+
+closeDescBtn.addEventListener("click", closeDescModal);
+
+// закрытие по клику вне окна
+descModal.addEventListener("click", (e) => {
+  if (e.target.classList.contains("modal__overlay")) {
+    closeDescModal();
+  }
+});

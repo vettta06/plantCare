@@ -175,6 +175,12 @@
   margin-bottom: 12px;
 }
 
+.more-btn {
+  margin-top: 6px;
+  font-size: 14px;
+  padding: 6px 10px;
+}
+
 /* Progress Bar */
 .plant-card__progress {
   margin-bottom: 16px;

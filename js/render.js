@@ -35,7 +35,11 @@ export function renderPlants(plants) {
     .map((p) => {
       const { percent } = getWaterProgress(p);
       const color = getProgressColor(percent);
-
+      // обрезка опиания карточки
+      const shortDesc =
+        p.description.length > 120
+          ? p.description.slice(0, 120) + "..."
+          : p.description;
       return `
       <div class="plant-card" data-id="${p.id}">
         <div class="plant-card__image">
@@ -44,7 +48,10 @@ export function renderPlants(plants) {
 
         <div class="plant-card__content">
           <h3 class="plant-card__title">${p.name}</h3>
-          <p class="plant-card__desc">${p.description}</p>
+          <p class="plant-card__desc">${shortDesc}</p>
+          <button class="btn btn--secondary more-btn" data-action="more">
+            Подробнее
+          </button>
           <p class="plant-card__age">${tr(t.form.planted)}: ${p.plantedDate}</p>
           <p class="plant-card__watered">
             ${tr(t.form.watered)}: ${formatDate(p.lastWatered)}
