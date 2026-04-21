@@ -6,7 +6,7 @@ import { initForm } from "./form.js";
 import { initControls } from "./controls.js";
 import { getLocalDateTime } from "./utils.js";
 import { renderStats } from "./stats.js";
-import { t, tr, lang } from "./translate.js";
+import { t, tr, lang, translateToEnglish } from "./translate.js";
 
 const staticText = {
   home: { ru: "Главная", en: "Home" },
@@ -328,15 +328,3 @@ descModal.addEventListener("click", (e) => {
     closeDescModal();
   }
 });
-
-//перевод
-async function translateToEnglish(text) {
-  if (!text.trim()) return "";
-
-  const res = await fetch(
-    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`,
-  );
-
-  const data = await res.json();
-  return data[0][0][0];
-}

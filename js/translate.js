@@ -38,3 +38,24 @@ export const t = {
 export function tr(obj) {
   return obj[lang];
 }
+
+//перевод
+export async function translateToEnglish(text) {
+  if (!text.trim()) return "";
+
+  const res = await fetch(
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`,
+  );
+
+  const data = await res.json();
+  return data[0][0][0];
+}
+
+export async function translateToRussian(text) {
+  if (!text.trim()) return "";
+  const res = await fetch(
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ru&dt=t&q=${encodeURIComponent(text)}`
+  );
+  const data = await res.json();
+  return data[0].map((item) => item[0]).join("");
+}

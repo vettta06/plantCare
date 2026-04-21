@@ -1,7 +1,7 @@
 // обрабатывает открытие модального окна и добавление
 
 import { getLocalDateTime } from "./utils.js";
-import { t, tr } from "./translate.js";
+import { t, tr, translateToEnglish, lang, translateToRussian } from "./translate.js";
 
 export function initForm(onSubmit) {
   const modal = document.getElementById("addPlantModal");
@@ -13,10 +13,11 @@ export function initForm(onSubmit) {
   const fetchBtn = document.getElementById("fetchPlantBtn");
 
   fetchBtn.addEventListener("click", async () => {
-    const name = nameInput.value.trim().toLowerCase();
+    let name = nameInput.value.trim();
     if (!name) return;
-
-    const plant = await fetchPlantData(name);
+    const translated = await translateToEnglish(name);
+    const searchName = translated || name;
+    const plant = await fetchPlantData(searchName);
 
     if (!plant) {
       alert("Растение не найдено (пиши на английском)");
@@ -24,7 +25,18 @@ export function initForm(onSubmit) {
     }
 
     // описание
-    form.elements.description.value = plant.description || "Нет описания";
+    let description = plant.description || "No description";
+
+    if (lang === "ru") {
+      try {
+        const translated = await translateToRussian(description);
+        description = translated || description;
+      } catch (e) {
+        console.error("Ошибка перевода", e);
+      }
+    }
+
+    form.elements.description.value = description;
 
     // частота полива
     const wf = plant.wateringBenchmark;
