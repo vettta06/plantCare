@@ -1,7 +1,13 @@
 // обрабатывает открытие модального окна и добавление
 
 import { getLocalDateTime } from "./utils.js";
-import { t, tr, translateToEnglish, lang, translateToRussian } from "./translate.js";
+import {
+  t,
+  tr,
+  translateToEnglish,
+  lang,
+  translateToRussian,
+} from "./translate.js";
 
 export function initForm(onSubmit) {
   const modal = document.getElementById("addPlantModal");
@@ -15,52 +21,67 @@ export function initForm(onSubmit) {
   fetchBtn.addEventListener("click", async () => {
     let name = nameInput.value.trim();
     if (!name) return;
-    const translated = await translateToEnglish(name);
-    const searchName = translated || name;
-    const plant = await fetchPlantData(searchName);
+    fetchBtn.textContent = "⏳";
+    fetchBtn.disabled = true;
+    try {
+      const translated = await translateToEnglish(name);
+      const searchName = translated || name;
 
-    if (!plant) {
-      alert("Растение не найдено (пиши на английском)");
-      return;
-    }
+      const plant = await fetchPlantData(searchName);
 
-    // описание
-    let description = plant.description || "No description";
-
-    if (lang === "ru") {
-      try {
-        const translated = await translateToRussian(description);
-        description = translated || description;
-      } catch (e) {
-        console.error("Ошибка перевода", e);
+      if (!plant) {
+        fetchBtn.textContent = "✖";
+        alert("Растение не найдено");
+        return;
       }
-    }
 
-    form.elements.description.value = description;
+      // описание
+      let description = plant.description || "No description";
 
-    // частота полива
-    const wf = plant.wateringBenchmark;
-    const wfInput = form.querySelector('[name="wateringFrequency"]');
+      if (lang === "ru") {
+        try {
+          const translated = await translateToRussian(description);
+          description = translated || description;
+        } catch (e) {
+          console.error("Ошибка перевода", e);
+        }
+      }
 
-    if (wf?.value) {
-      const match = wf.value.match(/\d+/);
-      if (match) {
-        const days = Number(match[0]);
-        const hours = days * 24;
-        wfInput.value = hours;
+      form.elements.description.value = description;
+
+      // частота полива
+      const wf = plant.wateringBenchmark;
+      const wfInput = form.querySelector('[name="wateringFrequency"]');
+
+      if (wf?.value) {
+        const match = wf.value.match(/\d+/);
+        if (match) {
+          const days = Number(match[0]);
+          const hours = days * 24;
+          wfInput.value = hours;
+        } else {
+          wfInput.value = "";
+        }
+      } else if (plant.watering) {
+        const map = {
+          frequent: 48,
+          average: 120,
+          minimum: 240,
+        };
+        const key = plant.watering.toLowerCase();
+        wfInput.value = map[key] || "";
       } else {
         wfInput.value = "";
       }
-    } else if (plant.watering) {
-      const map = {
-        frequent: 48,
-        average: 120,
-        minimum: 240,
-      };
-      const key = plant.watering.toLowerCase();
-      wfInput.value = map[key] || "";
-    } else {
-      wfInput.value = "";
+      fetchBtn.textContent = "✔";
+    } catch (e) {
+      console.error(e);
+      fetchBtn.textContent = "✖";
+    } finally {
+      setTimeout(() => {
+        fetchBtn.textContent = "auto";
+        fetchBtn.disabled = false;
+      }, 1500);
     }
   });
 
