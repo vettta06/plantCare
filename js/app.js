@@ -238,6 +238,38 @@ if (formExists) {
   initControls(() => plants, updateUI);
 }
 
+const nameInput = document.querySelector('input[name="name"]');
+const hint = document.getElementById("translatedHint");
+
+if (nameInput && hint) {
+  let timeout;
+
+  nameInput.addEventListener("input", () => {
+    clearTimeout(timeout);
+
+    const value = nameInput.value;
+
+    timeout = setTimeout(async () => {
+      if (!value.trim()) {
+        hint.textContent = "";
+        return;
+      }
+
+      try {
+        const translated = await translateToEnglish(value);
+
+        if (translated.toLowerCase() !== value.toLowerCase()) {
+          hint.textContent = `→ ${translated}`;
+        } else {
+          hint.textContent = "";
+        }
+      } catch (e) {
+        hint.textContent = "";
+      }
+    }, 400);
+  });
+}
+
 const themeBtn = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 
@@ -296,3 +328,15 @@ descModal.addEventListener("click", (e) => {
     closeDescModal();
   }
 });
+
+//перевод
+async function translateToEnglish(text) {
+  if (!text.trim()) return "";
+
+  const res = await fetch(
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`,
+  );
+
+  const data = await res.json();
+  return data[0][0][0];
+}
