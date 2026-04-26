@@ -266,6 +266,7 @@
 
 .empty-state {
   grid-column: 1 / -1;
+  display: none; 
   text-align: center;
   padding: 60px 20px;
 }

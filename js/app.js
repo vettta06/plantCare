@@ -100,19 +100,29 @@ const isMainPage = document.querySelector(".plants-grid");
 
 /* update ui */
 function updateUI(data = plants) {
+  const emptyState = document.getElementById('emptyState');
+  const pagination = document.getElementById('pagination');
   if (isMainPage) {
-    totalPagesGlobal = Math.ceil(data.length / itemsPerPage) || 1;
+    if (!data || data.length === 0) {
+      if (emptyState) emptyState.style.display = 'block';
+      if (pagination) pagination.style.display = 'none';
+      renderPlants([]);
+      return;
+    }
+    if (emptyState) emptyState.style.display = 'none';
+    if (pagination) pagination.style.display = 'flex';
+    totalPagesGlobal = Math.ceil(data.length / itemsPerPage) || 1;    
     if (currentPage > totalPagesGlobal) {
-      currentPage = 1;
+        currentPage = 1;
     }
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const paginatedData = data.slice(startIndex, endIndex);
-    renderPlants(paginatedData);
+    renderPlants(paginatedData);    
     renderPaginationControls(data.length);
-  }
+  }  
   if (isStatsPage) {
-    renderStats(plants);
+     renderStats(plants); 
   }
 }
 
