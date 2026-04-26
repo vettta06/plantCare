@@ -10,7 +10,7 @@ export const t = {
   },
 
   empty: {
-    first: { ru: "Добавьте первое растение", en: "Add your first plant" },
+    first: { ru: "Растений пока нет", en: "No plants now" },
     healthy: {
       ru: "Нет здоровых растений. Полейте растения!",
       en: "No healthy plants. Please water your plants!",
