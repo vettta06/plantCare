@@ -8,6 +8,10 @@ import { getLocalDateTime } from "./utils.js";
 import { renderStats } from "./stats.js";
 import { t, tr, lang, translateToEnglish } from "./translate.js";
 
+let currentPage = 1;
+let itemsPerPage = 9;
+let totalPagesGlobal = 1;
+
 const staticText = {
   home: { ru: "Главная", en: "Home" },
   stats: { ru: "Статистика", en: "Statistics" },
@@ -52,7 +56,7 @@ const staticText = {
   succulents: { ru: "Суккуленты", en: "Succulents" },
 
   allGood: { ru: "Все хорошо", en: "All good" },
-  attention: { ru: "Внимание", en: "Attention" },
+  attention: { ru: "Приемлемо", en: "Attention" },
   critical: { ru: "Критично", en: "Critical" },
 
   aboutTitle: {
@@ -86,8 +90,6 @@ document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
   }
 });
 
-/* ================== app ================== */
-
 /* state */
 let plants = getPlants();
 let editingId = null;
@@ -99,8 +101,79 @@ const isMainPage = document.querySelector(".plants-grid");
 /* update ui */
 function updateUI(data = plants) {
   if (isMainPage) {
-    renderPlants(data);
+    totalPagesGlobal = Math.ceil(data.length / itemsPerPage) || 1;
+    if (currentPage > totalPagesGlobal) {
+      currentPage = 1;
+    }
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedData = data.slice(startIndex, endIndex);
+    renderPlants(paginatedData);
+    renderPaginationControls(data.length);
   }
+  if (isStatsPage) {
+    renderStats(plants);
+  }
+}
+
+// Функция отрисовки цифр пагинации
+function renderPaginationControls(totalItems) {
+  const paginationNumbers = document.getElementById("paginationNumbers");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  if (!paginationNumbers) return;
+  const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+  if (prevBtn) prevBtn.disabled = currentPage === 1;
+  if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+  paginationNumbers.innerHTML = "";
+  const createBtn = (page, text = page) => {
+    const btn = document.createElement("button");
+    btn.classList.add("pagination__number");
+    if (page === currentPage) btn.classList.add("active");
+    btn.innerText = text;
+    if (page !== "...") {
+      btn.addEventListener("click", () => {
+        currentPage = page;
+        updateUI();
+        const grid = document.querySelector(".plants-grid");
+        if (grid) grid.scrollIntoView({ behavior: "smooth" });
+      });
+    } else {
+      btn.style.cursor = "default";
+      btn.style.background = "transparent";
+      btn.style.pointerEvents = "none";
+    }
+    return btn;
+  };
+  const delta = 1;
+  const range = [];
+  const rangeWithDots = [];
+  let l;
+  for (let i = 1; i <= totalPages; i++) {
+    if (
+      i === 1 ||
+      i === totalPages ||
+      (i >= currentPage - delta && i <= currentPage + delta)
+    ) {
+      range.push(i);
+    }
+  }
+  for (let i of range) {
+    if (l) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (i - l !== 1) {
+        rangeWithDots.push("...");
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+  rangeWithDots.forEach((item) => {
+    paginationNumbers.appendChild(
+      createBtn(item, item === "..." ? "..." : item),
+    );
+  });
 }
 
 /* init */
@@ -109,6 +182,8 @@ if (isStatsPage) {
 }
 
 if (isMainPage) {
+  updateItemsPerPage();
+  setupPaginationListeners();
   updateUI();
 }
 
@@ -235,7 +310,13 @@ const formExists = document.querySelector("form");
 
 if (formExists) {
   initForm(handleAddPlant);
-  initControls(() => plants, updateUI);
+  initControls(
+    () => plants,
+    (filteredData) => {
+      currentPage = 1;
+      updateUI(filteredData);
+    },
+  );
 }
 
 const nameInput = document.querySelector('input[name="name"]');
@@ -328,3 +409,48 @@ descModal.addEventListener("click", (e) => {
     closeDescModal();
   }
 });
+
+// --- PAGINATION FUNCTIONS ---
+
+function updateItemsPerPage() {
+  const width = window.innerWidth;
+  if (width < 768) {
+    itemsPerPage = 4; // Мобильные
+  } else if (width < 1024) {
+    itemsPerPage = 6; // Планшеты
+  } else {
+    itemsPerPage = 9; // Десктоп
+  }
+}
+
+function setupPaginationListeners() {
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const paginationNumbers = document.getElementById("paginationNumbers");
+  if (!prevBtn || !nextBtn || !paginationNumbers) return;
+  // Кнопка Назад
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      updateUI();
+      document
+        .querySelector(".plants-grid")
+        .scrollIntoView({ behavior: "smooth" });
+    }
+  });
+  // Кнопка Вперед
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < totalPagesGlobal) {
+      currentPage++;
+      updateUI();
+      document
+        .querySelector(".plants-grid")
+        .scrollIntoView({ behavior: "smooth" });
+    }
+  });
+  window.addEventListener("resize", () => {
+    updateItemsPerPage();
+    currentPage = 1;
+    updateUI();
+  });
+}

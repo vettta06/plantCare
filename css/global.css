@@ -19,14 +19,14 @@
 }
 
 [data-theme="dark"] {
-  --bg-primary: #181a1b;
-  --bg-secondary: #242526;
-  --text-black: #e4e6eb;
-  --bg-trinity: #2f3133;
-  --btn-green: #4caf6a;
-  --bar-green: #4caf6a;
-  --bar-yellow: #e6c15a;
-  --bar-red: #e57373;
+  --bg-primary: #1b262c;
+  --bg-secondary: #0f4c3a;
+  --text-black: #e0e1dd;
+  --bg-trinity: #203c32;
+  --btn-green: #95d5b2;
+  --bar-green: #4caf50;
+  --bar-yellow: #ffca28;
+  --bar-red: #ef5350;
 }
 
 * {

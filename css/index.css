@@ -474,6 +474,79 @@
 }
 
 /* ==================================
+   PAGINATION
+   ================================== */
+.pagination {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 66px;
+}
+
+.pagination__btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background-color: var(--bg-secondary);
+  color: var(--text-black);
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.pagination__btn:hover:not(:disabled) {
+  background-color: var(--btn-green);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.pagination__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--bg-trinity);
+}
+
+.pagination__numbers {
+  display: flex;
+  gap: 8px;
+}
+
+.pagination__number {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-black);
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination__number:hover {
+  background-color: var(--bg-secondary);
+}
+
+.pagination__number.active {
+  background-color: var(--btn-green);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* ==================================
    TABLET (<= 1024px)
    ================================== */
 @media (max-width: 1024px) {
@@ -573,6 +646,20 @@
 
   .plant-card__actions .btn--icon + .btn--icon {
     margin-left: 16px; /* было 28px */
+  }
+
+  .pagination {
+    padding: 0 20px;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .pagination__btn,
+  .pagination__number {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 10px;
   }
 }
 
@@ -695,5 +782,19 @@
   /* FOOTER */
   .footer {
     padding: 20px 0;
+  }
+
+  .pagination {
+    padding: 0 16px;
+    gap: 6px;
+    margin-bottom: 30px;
+  }
+
+  .pagination__btn,
+  .pagination__number {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    border-radius: 8px;
   }
 }
