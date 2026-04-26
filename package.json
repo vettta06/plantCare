@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,10 @@
   },
   "homepage": "https://github.com/vettta06/plantCare#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.29.2",
+    "babel-jest": "^30.3.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "vite": "^8.0.9"
   }
 }
