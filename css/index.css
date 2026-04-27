@@ -547,6 +547,95 @@
 }
 
 /* ==================================
+   MODAL: PLANT DETAILS (Новая модалка)
+   ================================== */
+
+/* Специфичные стили для контента этой модалки */
+.plant-details-modal {
+  /* Используем те же отступы, что и в основной модалке, но чуть компактнее */
+  padding: 40px 50px;
+  max-width: 550px; /* Чуть уже, чем форма добавления, чтобы удобно читать текст */
+}
+
+.modal-section {
+  margin-bottom: 24px;
+}
+
+.modal__subtitle {
+  font-family: var(--font-main);
+  font-size: 18px;
+  color: var(--text-black);
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--bg-trinity); /* Тонкая линия разделитель */
+  padding-bottom: 8px;
+}
+
+.modal__text {
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-black);
+  margin: 0;
+  white-space: pre-wrap; /* Сохраняет абзацы из API */
+}
+
+.modal__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modal__list li {
+  font-family: var(--font-main);
+  font-size: 16px;
+  color: var(--text-black);
+  margin-bottom: 10px;
+  padding-left: 24px;
+  position: relative;
+  line-height: 1.4;
+}
+
+/* Красивые буллеты перед пунктами списка */
+.modal__list li::before {
+  content: "•";
+  color: var(--btn-green);
+  font-weight: bold;
+  font-size: 20px;
+  position: absolute;
+  left: 4px;
+  top: -2px;
+}
+
+.modal__note {
+  background-color: var(--bg-secondary);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Утилита для скрытия элементов */
+.hidden {
+  display: none !important;
+}
+
+/* Адаптив для новой модалки (как у основной) */
+@media (max-width: 767px) {
+  .plant-details-modal {
+    padding: 24px 20px;
+    width: 90%;
+  }
+
+  .modal__subtitle,
+  .modal__text,
+  .modal__list li {
+    font-size: 14px;
+  }
+}
+
+/* ==================================
    TABLET (<= 1024px)
    ================================== */
 @media (max-width: 1024px) {
@@ -784,7 +873,7 @@
     padding: 20px 0;
   }
 
-   .pagination {
+  .pagination {
     padding: 0 16px;
     gap: 6px;
     margin-bottom: 30px;

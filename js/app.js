@@ -15,7 +15,7 @@ let totalPagesGlobal = 1;
 const staticText = {
   home: { ru: "Главная", en: "Home" },
   stats: { ru: "Статистика", en: "Statistics" },
-  about: { ru: "О проекте", en: "About" },
+  // about: { ru: "О проекте", en: "About" },
 
   plantName: { ru: "Название растения...", en: "Plant name..." },
   imageUrl: { ru: "Ссылка на изображение...", en: "Image URL..." },
@@ -59,15 +59,15 @@ const staticText = {
   attention: { ru: "Приемлемо", en: "Attention" },
   critical: { ru: "Критично", en: "Critical" },
 
-  aboutTitle: {
-    ru: "О приложении PlantCare",
-    en: "About PlantCare",
-  },
+  // aboutTitle: {
+  //   ru: "О приложении PlantCare",
+  //   en: "About PlantCare",
+  // },
 
-  aboutText: {
-    ru: "Веб-приложение для отслеживания расписания ухода за комнатными растениями. Разработано в рамках курсового проекта для автоматизации напоминаний о поливе растений и визуализации статистики.",
-    en: "Web application for tracking indoor plant care schedules. Developed as a course project to automate watering reminders and visualize statistics.",
-  },
+  // aboutText: {
+  //   ru: "Веб-приложение для отслеживания расписания ухода за комнатными растениями. Разработано в рамках курсового проекта для автоматизации напоминаний о поливе растений и визуализации статистики.",
+  //   en: "Web application for tracking indoor plant care schedules. Developed as a course project to automate watering reminders and visualize statistics.",
+  // },
 
   developer: {
     ru: "Разработчик:",
