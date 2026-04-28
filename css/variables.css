@@ -1,0 +1,16 @@
+:root {
+  /* Colors - Light Theme */
+  --bg-primary: #e5f1e5;
+  --bg-secondary: #fdfff5;
+  --btn-green: #0d5e13;
+  --bar-green: #0d5e13;
+  --bar-yellow: #ffde88;
+  --bar-red: #fc8181;
+  --text-black: #000000;
+  --bg-trinity: #faf3e0;
+  --light-green: #93dab1;
+  --brown: #b9a585;
+
+  /* Font */
+  --font-main: "Jacques Francois", cursive;
+}

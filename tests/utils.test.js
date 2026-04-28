@@ -3,7 +3,6 @@ import { generateId, getLocalDateTime } from "../js/utils.js";
 describe("Utility Functions", () => {
   test("generates unique numeric string IDs", async () => {
     const id1 = generateId();
-    // Небольшая задержка, чтобы Date.now() вернул другое значение
     await new Promise((r) => setTimeout(r, 10));
     const id2 = generateId();
 

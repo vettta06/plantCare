@@ -1,0 +1,10 @@
+[data-theme="dark"] {
+  --bg-primary: #1b262c;
+  --bg-secondary: #0f4c3a;
+  --text-black: #e0e1dd;
+  --bg-trinity: #203c32;
+  --btn-green: #95d5b2;
+  --bar-green: #4caf50;
+  --bar-yellow: #ffca28;
+  --bar-red: #ef5350;
+}

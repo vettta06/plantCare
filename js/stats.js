@@ -16,14 +16,11 @@ export function renderStats(plants) {
 
   plants.forEach((p) => {
     const percent = getWaterPercent(p);
-
     if (percent <= 30) needWater++;
     else healthy++;
-
     if (types[p.type] !== undefined) {
       types[p.type]++;
     }
-
     if (percent > 60) good++;
     else if (percent > 30) attention++;
     else critical++;
@@ -68,16 +65,11 @@ export function renderStats(plants) {
 function getWaterPercent(plant) {
   const baseDate = plant.lastWatered || plant.plantedDate;
   if (!baseDate) return 100;
-
   const last = new Date(baseDate);
   const now = new Date();
-
   if (isNaN(last.getTime())) return 100;
-
   const diffHours = (now - last) / (1000 * 60 * 60);
   const freq = Number(plant.wateringFrequency) || 1;
-
   let percent = 100 - (diffHours / freq) * 100;
-
   return Math.min(100, Math.max(0, Math.round(percent)));
 }
