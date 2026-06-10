@@ -149,7 +149,7 @@ export function renderPagination(totalItems, currentPage, onPageChange) {
 
   paginationNumbers.innerHTML = "";
 
-  // Логика генерации кнопок (твоя логика с delta)
+  // Логика генерации кнопок 
   const delta = 1;
   const range = [];
   for (let i = 1; i <= totalPages; i++) {
